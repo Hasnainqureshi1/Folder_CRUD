@@ -1,0 +1,44 @@
+// Highlight item on scroll
+var offset = 100;
+window.addEventListener('scroll', function() {
+    var position = window.pageYOffset || document.documentElement.scrollTop;
+    var productLinks = document.querySelectorAll('#jumpmenu-product li a[href^="#"]');
+    productLinks.forEach(function(link) {
+        var anchorId = link.getAttribute('href');
+        var target = document.querySelector(anchorId).offsetTop - offset;
+        var target2 = target + document.querySelector(anchorId).offsetHeight;
+        if (position >= target && position < target2) {
+            link.parentNode.classList.add('active');
+            var ulWidth = link.parentNode.parentNode.offsetWidth;
+            var liWidth = link.parentNode.offsetWidth;
+            var scrollValue = ulWidth - liWidth + 50;
+            if ((link.parentNode.offsetLeft + liWidth) > ulWidth) {
+                link.parentNode.parentNode.scrollLeft = scrollValue;
+            } else if ((link.parentNode.offsetLeft + liWidth) < ulWidth) {
+                link.parentNode.parentNode.scrollLeft = -scrollValue;
+            }
+        } else {
+            link.parentNode.classList.remove('active');
+        }
+    });
+    var articleLinks = document.querySelectorAll('#jumpmenu-article li a[href^="#"]');
+    articleLinks.forEach(function(link) {
+        var anchorId = link.getAttribute('href');
+        var target = document.querySelector(anchorId).offsetTop - offset;
+        var target2 = target + document.querySelector(anchorId).offsetHeight;
+console.log(target2);
+console.log("target 2");
+        if (position >= target && position < target2) {
+            link.parentNode.classList.add('active');
+		console.log(position);
+		console.log("position")
+        } else {
+            link.parentNode.classList.remove('active');
+        }
+    });
+});
+
+window.addEventListener('DOMContentLoaded', function() {
+    // Set our scroll state after DOM ready
+    window.scroll();
+});
